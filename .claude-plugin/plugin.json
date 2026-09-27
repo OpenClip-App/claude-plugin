@@ -1,0 +1,22 @@
+{
+  "name": "openclip",
+  "displayName": "OpenClip",
+  "version": "1.0.0",
+  "description": "Turn long videos into short vertical clips ranked by virality, preview them in the conversation, and render captioned finals from your OpenClip account.",
+  "author": {
+    "name": "OpenClip",
+    "email": "support@openclip.app",
+    "url": "https://openclip.app"
+  },
+  "homepage": "https://openclip.app/docs/developers/mcp",
+  "repository": "https://github.com/OpenClip-App/claude-plugin",
+  "license": "MIT",
+  "keywords": [
+    "video",
+    "clips",
+    "shorts",
+    "captions",
+    "transcripts",
+    "repurposing"
+  ]
+}

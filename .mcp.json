@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "openclip": {
+      "type": "http",
+      "url": "https://openclip.app/mcp/claude"
+    }
+  }
+}
