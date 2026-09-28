@@ -19,5 +19,7 @@
     "subtitles",
     "transcripts",
     "repurposing"
-  ]
+  ],
+  "icon": "./assets/icon-512.png",
+  "privacyPolicyUrl": "https://openclip.app/privacy"
 }
