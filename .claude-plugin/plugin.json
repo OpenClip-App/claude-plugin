@@ -1,7 +1,7 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Turn long videos into short vertical clips ranked by virality, preview them in the conversation, and render captioned finals from your OpenClip account.",
   "author": {
     "name": "OpenClip",
@@ -18,5 +18,7 @@
     "captions",
     "transcripts",
     "repurposing"
-  ]
+  ],
+  "icon": "./assets/icon-512.png",
+  "privacyPolicyUrl": "https://openclip.app/privacy"
 }
