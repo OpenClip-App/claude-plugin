@@ -4,8 +4,9 @@ Turn long videos into short vertical clips without leaving the conversation. Sha
 
 ## What's included
 
-- **OpenClip connector**: the hosted OpenClip MCP server at `https://openclip.app/mcp/claude`. It submits videos, reports processing and render status, lists clips, renders captioned clips, and returns time-coded transcripts. In Claude on the web, desktop, and mobile, clip results appear as an interactive card with playable previews.
+- **OpenClip connector**: the hosted OpenClip MCP server at `https://openclip.app/mcp/claude`. It submits videos, reports processing and render status, lists clips, renders captioned clips, captions short videos you upload, and returns time-coded transcripts. In Claude on the web, desktop, and mobile, clip results appear as an interactive card with playable previews.
 - **clip-video skill**: the submit, poll, preview, and render workflow, including how to read each processing status and pick the highest-scoring clip.
+- **caption-video skill**: uploads a short video (up to 3 minutes) you already have and renders it with animated captions in the style you pick.
 - **repurpose-clips skill**: writes quotes, captions, social posts, and summaries from a processed video's transcript, tied to the clips' timestamps.
 
 ## Requirements
@@ -19,12 +20,14 @@ Turn long videos into short vertical clips without leaving the conversation. Sha
 - "Which clip from my last OpenClip video scored highest? Render it with captions."
 - "Write a LinkedIn post from the top clip of my podcast episode, quoting what was said."
 - "Where in my webinar do they talk about pricing?"
+- "Caption ./reel.mp4 in the Chase style."
 
 ## Data and privacy
 
 The plugin itself stores nothing and runs no local code. It connects Claude to OpenClip's server at `openclip.app`, which receives:
 
 - the video links you ask Claude to process, plus optional titles
+- short video files you ask Claude to caption, uploaded directly to your OpenClip account
 - the ids of videos and clips you ask about, and your render choices, such as a caption style
 
 OpenClip downloads and processes those videos in your OpenClip account and returns clips, scores, and transcripts to Claude. Sign-in uses OAuth, so Claude never sees your OpenClip password. OpenClip doesn't read your Claude conversations. How OpenClip collects, uses, stores, and retains data is described in the [OpenClip privacy policy](https://openclip.app/privacy), and use of the service is covered by the [terms of service](https://openclip.app/terms).
