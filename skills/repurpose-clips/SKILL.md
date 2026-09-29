@@ -7,7 +7,7 @@ description: Write posts, captions, quotes, and summaries from a processed OpenC
 
 Once OpenClip has processed a video, its transcript and detected clips share one millisecond timeline. That lets you ground every post, quote, and summary in what was actually said.
 
-All tools come from the OpenClip connector. The video must already be processed; if it isn't, use the clip-video skill first.
+All tools come from the OpenClip connector. To read a clipping-pipeline video's transcript, the video must already be processed; if it isn't, use the clip-video skill first. For transcription alone, use `transcribe` on an existing video, or call `create_upload` for a video/audio file and PUT its real bytes first. Skip `complete_upload` for standalone transcription. Poll `get_tool_job_status` until completed, then use its JSON/SRT/VTT outputs. Clients without file transfer should use existing OpenClip media or the web uploader.
 
 ## Find the video and the moment
 

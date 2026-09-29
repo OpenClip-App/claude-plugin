@@ -1,8 +1,8 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.1.0",
-  "description": "Turn long videos into short vertical clips ranked by virality, caption any short video in animated styles, preview clips in the conversation, and render captioned finals from your OpenClip account.",
+  "version": "1.2.0",
+  "description": "Clip and caption videos, transcribe audio, edit existing video and images, convert formats, extract thumbnails, and manage saved OpenClip processing agents with 27 MCP tools.",
   "author": {
     "name": "OpenClip",
     "email": "support@openclip.app",
