@@ -7,13 +7,13 @@ description: Turn a long video into short vertical clips with OpenClip, then ren
 
 OpenClip downloads the source video, finds the moments most likely to perform as short vertical clips, and scores each one from 0 to 10. Everything runs asynchronously on OpenClip's side, so you submit, poll, and then read the results.
 
-All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab and sign in with their OpenClip account.
+All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab (or `/mcp` in Claude Code) and sign in. If they need an account, they can [create one](https://openclip.app/register). After connecting, call `get_account` to confirm the team, plan, and remaining credits.
 
 ## 1. Submit the source
 
 Call `submit_video` with the link as `url`. Pass `title` only if the user gave one. If the user requests a saved brand/processing agent, call `list_agents` and pass its id as `agent`; otherwise team defaults apply. Deduplication is by URL plus agent, so changing agents starts a new run and can use credits.
 
-For a local video in a client with authorized file access, call `create_upload`, PUT the actual bytes, then call `complete_upload` to start the paid clipping pipeline. Only this clipping workflow uses `complete_upload`; skip it for captions, transcription, and media utilities. Clients without file transfer should use an existing OpenClip video or the web uploader.
+For a local video, first check that this session can read the user-authorized file and upload its bytes. If it can, call `create_upload`, PUT the actual bytes, then call `complete_upload` to start the clipping pipeline, which requires a trial or paid plan with credits. Only this clipping workflow uses `complete_upload`; skip it for captions, transcription, and media utilities. Otherwise, use an existing OpenClip video or ask the user to upload through OpenClip.
 
 - If you're unsure the link is supported, call `list_supported_providers` first. Unsupported, non-HTTPS, and private links are rejected with a clear error; relay it and ask for another link. A link that is accepted but can't be fetched ends as `download_failed` in step 2.
 - `deduped: true` means OpenClip reused a run of the same link from the last 24 hours. Say so, and continue with the returned `video` id instead of submitting again.

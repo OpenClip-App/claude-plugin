@@ -1,7 +1,7 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Clip and caption videos, transcribe audio, edit existing video and images, convert formats, extract thumbnails, and manage saved OpenClip processing agents with 27 MCP tools.",
   "author": {
     "name": "OpenClip",

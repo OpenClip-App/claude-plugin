@@ -15,11 +15,14 @@ The connector exposes 27 tools. In addition to clipping and captions, Claude can
 
 ## Requirements
 
-- An OpenClip account. Sign in when you connect the OpenClip connector from the plugin's **Connectors** tab (Claude Code prompts you through `/mcp`).
-- Processing new videos needs an active OpenClip plan with credits: one credit per minute of source video. Reading existing videos, clips, and transcripts doesn't use credits.
+- An OpenClip account. [Create a free account](https://openclip.app/register) if you need one, then sign in when you connect OpenClip from the plugin's **Connectors** tab (Claude Code prompts you through `/mcp`).
+- Clipping your own videos needs a trial or paid plan with enough credits: one credit per minute of source video. Reading existing videos, clips, and transcripts doesn't use credits. Media utilities need only an account, subject to file and daily limits. Quick Captions uses no processing credits and follows the account's export allowance.
+
+The current [published trial offer](https://openclip.app/docs/getting-started/credits-and-plans) is 3 days with 60 processing credits for eligible accounts. It requires a card and costs $0 today; a temporary card authorization may appear. The selected plan is charged when the trial ends unless canceled. Trial renders include an OpenClip watermark. Signing up alone does not grant processing credits. See the linked documentation for current terms.
 
 ## Try it
 
+- "Check my OpenClip connection and tell me my plan and remaining credits."
 - "Turn https://www.youtube.com/watch?v=... into short clips."
 - "Which clip from my last OpenClip video scored highest? Render it with captions."
 - "Write a LinkedIn post from the top clip of my podcast episode, quoting what was said."
