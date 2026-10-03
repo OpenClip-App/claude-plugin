@@ -24,9 +24,9 @@ Claude checks processing progress, then returns previews or the finished file. S
 
 - **Clipping:** one processing credit per minute of source video, with enough credits and an active trial or paid plan. Reading existing videos, clips, and transcripts uses no processing credits.
 - **Quick Captions:** no processing credits. Free accounts can export two captioned videos per month; once that allowance is used, further exports, including re-exports, wait until the next month. Paid plans are unlimited.
-- **Media utilities:** an account is enough. Transcription, media edits, conversion, and thumbnail extraction use no processing credits, but file and daily limits apply.
+- **Media utilities:** an account is enough. Transcription, media edits, conversion, and thumbnail extraction use no processing credits, but file and daily limits apply. On free accounts, edited or converted videos, edited images, and GIFs carry an OpenClip watermark; transcripts, extracted audio, and thumbnail frames do not.
 
-The current [published trial offer](https://openclip.app/docs/getting-started/credits-and-plans) is 3 days with 60 processing credits for eligible accounts. It requires a card and costs $0 today; a temporary card authorization may appear. The selected plan is charged when the trial ends unless canceled. Trial renders include an OpenClip watermark. See the linked documentation for current terms.
+The current [published trial offer](https://openclip.app/docs/getting-started/credits-and-plans) is 3 days with 60 processing credits for eligible accounts. It requires a card and costs $0 today; a temporary card authorization may appear. The selected plan is charged when the trial ends unless canceled. Clips rendered during the trial include an OpenClip watermark. See the linked documentation for current terms.
 
 ## Video links and file uploads
 
