@@ -1,13 +1,15 @@
 ---
 name: clip-video
-description: Turn a long video into short vertical clips with OpenClip, then render the chosen ones with captions. Use when the user shares a YouTube, Vimeo, Google Drive, Dropbox, OneDrive, Rumble, or direct video link and asks to clip it, find the best or viral moments, make shorts, TikToks, Reels, or YouTube Shorts from it, or render a clip with captions. Also use when they ask how an earlier OpenClip video is doing.
+description: Find short clips in a long video, preview the results, and render selected clips with captions. Use for public video links or authorized local videos when the user asks for podcast highlights, interview clips, shorts, TikToks, Reels, or YouTube Shorts. Also use to check an OpenClip video's progress or render an existing clip.
 ---
 
 # Clip a video with OpenClip
 
-OpenClip downloads the source video, finds the moments most likely to perform as short vertical clips, and scores each one from 0 to 10. Everything runs asynchronously on OpenClip's side, so you submit, poll, and then read the results.
+Help the user choose a moment to share and get a captioned video file. OpenClip detects candidate clips and scores each one from 0 to 10 for comparison. Submit the requested source, check progress, show previews, and render the clips the user chooses. Do not promise audience performance.
 
 All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab (or `/mcp` in Claude Code) and sign in. If they need an account, they can [create one](https://openclip.app/register). After connecting, call `get_account` to confirm the team, plan, and remaining credits.
+
+Start with the user's task. For an existing clip or transcript, use the saved video rather than submitting it again. For captions on a finished short video, use the caption-video skill. For a quote, summary, or standalone transcript, use repurpose-clips. Do not start clipping to demonstrate a feature the user did not request.
 
 ## 1. Submit the source
 
@@ -19,7 +21,7 @@ For a local video, first check that this session can read the user-authorized fi
 - `deduped: true` means OpenClip reused a run of the same link from the last 24 hours. Say so, and continue with the returned `video` id instead of submitting again.
 - For an existing video ("how is my podcast clip doing?"), call `list_videos` and use the matching `id`. If several titles match, ask which one.
 
-Processing uses credits, one per minute of source video. If the user asks what a long video will cost, call `get_account` and report `credits_remaining` before submitting.
+New clipping needs a trial or paid plan with credits, at one credit per source minute. Before the first submission, call `get_account` if the plan and balance have not already been checked. Explain any account restriction plainly. When asked about cost, state the rate and available balance; do not invent the source's duration.
 
 ## 2. Poll until it's done
 
@@ -33,7 +35,7 @@ Call `get_video_status` with the `video` id every 10 to 15 seconds.
 | `download_failed` | The link couldn't be fetched | Stop. Ask the user to check that the video is public |
 | `failed` | Processing failed | Stop. Tell the user, and suggest trying again later |
 
-Most videos finish within a few minutes. If a video is still in flight after about 15 minutes, stop polling, tell the user it's still processing, and offer to check again later.
+If a video is still in flight after about 15 minutes, stop polling, tell the user it's still processing, and offer to check again later.
 
 ## 3. Show the clips
 
@@ -45,7 +47,7 @@ When there's no card (for example in Claude Code), summarize the top three by sc
 
 ## 4. Render captioned finals
 
-Preview clips are watermarked. `render_clip` produces the final captioned version of one clip.
+Preview watermarking depends on your account and the available preview. `render_clip` produces the final captioned version of one clip.
 
 1. Call `list_caption_presets` only if the user wants to choose a style. Otherwise omit `caption_preset` and the clip keeps its current caption style.
 2. Call `render_clip` with the `video` id and the clip's `id` as `viral_moment`. If it returns `not_dispatched`, nothing is rendering: the clip has no preview yet or rendering is unavailable. Tell the user and don't poll.
@@ -55,6 +57,8 @@ Preview clips are watermarked. `render_clip` produces the final captioned versio
 Rendering a clip that already has a final render replaces it. Before re-rendering, confirm with the user unless they asked for a new style.
 
 ## Saved processing agents
+
+For repeated work, a saved agent reuses the user's caption and composition choices. Use one when the user requests their brand settings; setting up an agent is not required for a first clip.
 
 Use `create_agent` for a new saved configuration and `update_agent` for requested changes to an existing one. Call `describe_agent_settings` before setting nested `composition_parameters` or `caption_style_overrides`; only send fields the user asked to change. Settings are shared across the team and affect future submissions.
 

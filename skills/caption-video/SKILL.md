@@ -1,11 +1,11 @@
 ---
 name: caption-video
-description: Add animated captions to a short video the user already has, with OpenClip, and get back a captioned MP4. Use when the user wants captions or subtitles burned into a finished short video (up to 3 minutes), such as a talking-head clip, a Reel, a TikTok, or a UGC clip, especially a local file, or asks to caption it in a specific style like Chase, Sweep, Stamp, or Glass. For a long video that should be cut into clips first, use the clip-video skill instead.
+description: Add animated captions to a finished short video and return a captioned MP4. Use for videos up to 3 minutes when the user asks for burned-in captions or subtitles, including talking-head clips, Reels, TikToks, and styles such as Chase, Sweep, Stamp, or Glass. For a long video that needs clips first, use clip-video.
 ---
 
 # Caption a short video with OpenClip
 
-OpenClip transcribes the video, times animated captions to every word, and renders a captioned MP4. It works on a whole short video (up to 3 minutes). Everything runs asynchronously on OpenClip's side.
+Turn the user's finished short video into a captioned MP4. OpenClip transcribes the speech and times animated captions to the words. Use this workflow for a whole video up to 3 minutes; the user does not need to create clips or save brand settings first.
 
 All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab (or `/mcp` in Claude Code) and sign in. If they need an account, they can [create one](https://openclip.app/register). After connecting, call `get_account` to confirm the team, plan, and remaining credits.
 
@@ -17,7 +17,7 @@ All tools come from the OpenClip connector. If the tools are missing, ask the us
 
 ## 2. Pick a style
 
-If the user named a style, use its key. If they want to choose, call `list_caption_presets` and offer a few by name with their one-line descriptions. The newest styles move with the voice: Chase, Sweep, Stamp, Glass, Stencil, Swipe, and more. If they don't care, use `default`.
+If the user named a style, use its key. If they want to choose, call `list_caption_presets` and offer a few by name with their one-line descriptions. Otherwise, use `default` and continue; choosing a style is optional.
 
 ## 3. Caption it
 
@@ -35,7 +35,7 @@ An error explains why a video can't be captioned: it isn't a video, it's longer 
 
 Poll `get_render_status` with the `video` id every 10 to 15 seconds while it reports `rendering`. At `completed`, share the `rendered_clip` URL. If it reports `failed`, or shows no render once the video is completed, call `caption_video` again: it retries or explains why it can't render. If it is still `rendering` after about 15 minutes, stop and tell the user it's still in progress.
 
-Captioning the same video again in a new style replaces the previous render and doesn't add another video to the monthly count. Once the free allowance reaches two videos, all further exports, including re-exports, are blocked until the next month. Confirm before re-rendering unless the user asked for a new style.
+Captioning the same video again in a new style replaces the previous render and doesn't add another video to the monthly count. Once two videos count against the free monthly allowance, all further exports, including re-exports, are blocked until the next month. Confirm before re-rendering unless the user asked for a new style.
 
 ## Usage
 
