@@ -1,8 +1,8 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.2.0",
-  "description": "Clip and caption videos, transcribe audio, edit existing video and images, convert formats, extract thumbnails, and manage saved OpenClip processing agents with 27 MCP tools.",
+  "version": "1.2.1",
+  "description": "Find and preview clips from long videos, export chosen clips with captions, and reuse transcripts for posts. Caption short videos, edit media, and save brand settings.",
   "author": {
     "name": "OpenClip",
     "email": "support@openclip.app",
