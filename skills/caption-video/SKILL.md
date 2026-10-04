@@ -37,7 +37,7 @@ Stop polling on `pending_credits`, `download_failed`, or `failed` and explain th
 
 Poll `get_render_status` with the `video` id every 10 to 15 seconds while its render entry reports `rendering`. A null `rendered_clip` is expected while rendering. At `completed`, share its `rendered_clip` URL.
 
-After transcription completes, an empty `renders` list or `not_rendered` can mean the requested render has not started or was refused. Call `caption_video` once more with the same video and preset to finish the original request or obtain the exact error (for example, the video exceeds three minutes). Follow its returned state; do not repeat this recovery call. Stop on `failed`, `skipped`, `not_dispatched`, a tool error, or a second empty/not-rendered result. Explain the result and offer a retry. Never re-caption a completed output unless requested.
+After transcription completes, an empty `renders` list or `not_rendered` can mean the requested render has not started or was refused. Call `caption_video` once more with the same video and preset to finish the original request or obtain the exact error (for example, the video exceeds three minutes). Do not repeat this recovery call. If it returns a tool error, read `get_render_status` once: the queued render may have started meanwhile. Follow `rendering` or `completed` within the original deadline; otherwise report the error and stop. Stop on `failed`, `skipped`, `not_dispatched`, or a second empty/not-rendered result. Explain the result and offer a retry. Never re-caption a completed output unless requested.
 
 Stop polling after 15 minutes and report the current state if still in progress. Never claim an export is ready without a completed render and its output URL.
 
