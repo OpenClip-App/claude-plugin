@@ -1,19 +1,23 @@
 ---
 name: repurpose-clips
-description: Write posts, captions, quotes, and summaries from a processed OpenClip video's transcript and clips. Use when the user asks what was said at a point in a video, wants a quote or pull-quote, a caption or social post for a clip, a thread or newsletter blurb from a video, or asks to find where a topic comes up in something OpenClip has processed.
+description: Find quotes and topics, draft posts, or summarize an OpenClip video using its transcript and timestamps. Use for clip captions, social posts, threads, newsletter blurbs, and questions about what was said. Also use for standalone transcription of an authorized video or audio file without starting the clipping pipeline.
 ---
 
 # Repurpose an OpenClip video
 
-Once OpenClip has processed a video, its transcript and detected clips share one millisecond timeline. That lets you ground every post, quote, and summary in what was actually said.
+Find the passage the user needs, then turn it into a quote, summary, or draft post. A processed video's transcript and clips share a timeline, so the user can trace the draft back to the source. Drafting text does not publish or schedule it.
 
-All tools come from the OpenClip connector. To read a clipping-pipeline video's transcript, the video must already be processed; if it isn't, use the clip-video skill first. For transcription alone, use `transcribe` on an existing video, or call `create_upload` for a video/audio file and PUT its real bytes first. Skip `complete_upload` for standalone transcription. Poll `get_tool_job_status` until completed, then use its JSON/SRT/VTT outputs. Clients without file transfer should use existing OpenClip media or the web uploader.
+All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab (or `/mcp` in Claude Code) and sign in. If they need an account, they can [create one](https://openclip.app/register). After connecting, call `get_account` to confirm the team, plan, and remaining credits.
+
+Use `get_transcript` for an existing clipping-pipeline video. If its transcript is not ready, check `get_video_status` and explain its current state. For transcription alone, use `transcribe` on an existing video. For a local video/audio file, check that this session can read the user-authorized file and upload its bytes before calling `create_upload` and PUTting the file. Otherwise, ask the user to upload through OpenClip. Skip `complete_upload` for standalone transcription. Poll `get_tool_job_status` every 5 to 10 seconds while `queued` or `processing`; stop on `completed` or `failed`. Stop after 15 minutes and report its current state if still in progress. Use its JSON/SRT/VTT outputs only on completion; explain the returned error on failure.
+
+Use an existing transcript when available. Standalone transcription uses no processing credits, but file and daily limits apply. Do not submit a video for paid clipping when the user only wants a transcript or written draft.
 
 ## Find the video and the moment
 
 1. Call `list_videos` and pick the `id` whose title matches. Ask if several match.
 2. Call `list_clips` when the user refers to a clip ("the top clip", "the one about pricing"). Each clip has `start_time_ms` and `end_time_ms`.
-3. Call `get_transcript` with the `video` id. Pass a clip's `start_time_ms` and `end_time_ms` to read just that clip, or omit both for the whole video. Use `level: "word"` only when exact timing matters.
+3. Call `get_transcript` with the `video` id. To read just that clip, pass its `start_time_ms` as `start_ms` and its `end_time_ms` as `end_ms`. Omit both for the whole video. Use `level: "word"` only when exact timing matters.
 
 `transcript_ready: false` means the video is still processing. An empty `segments` list with `transcript_ready: true` means nothing was said in that window; widen it.
 
