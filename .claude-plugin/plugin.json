@@ -1,7 +1,7 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Find and preview clips from long videos, export chosen clips with captions, and reuse transcripts for posts. Caption short videos, edit media, and save brand settings.",
   "author": {
     "name": "OpenClip",
