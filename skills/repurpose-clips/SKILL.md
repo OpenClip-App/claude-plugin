@@ -9,7 +9,7 @@ Find the passage the user needs, then turn it into a quote, summary, or draft po
 
 All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab (or `/mcp` in Claude Code) and sign in. If they need an account, they can [create one](https://openclip.app/register). After connecting, call `get_account` to confirm the team, plan, and remaining credits.
 
-Use `get_transcript` for an existing clipping-pipeline video. If its transcript is not ready, check `get_video_status` and explain its current state. For transcription alone, use `transcribe` on an existing video. For a local video/audio file, check that this session can read the user-authorized file and upload its bytes before calling `create_upload` and PUTting the file. Otherwise, ask the user to upload through OpenClip. Skip `complete_upload` for standalone transcription. Poll `get_tool_job_status` while `queued` or `processing`; stop on `completed` or `failed`. Use its JSON/SRT/VTT outputs only on completion; explain the returned error on failure.
+Use `get_transcript` for an existing clipping-pipeline video. If its transcript is not ready, check `get_video_status` and explain its current state. For transcription alone, use `transcribe` on an existing video. For a local video/audio file, check that this session can read the user-authorized file and upload its bytes before calling `create_upload` and PUTting the file. Otherwise, ask the user to upload through OpenClip. Skip `complete_upload` for standalone transcription. Poll `get_tool_job_status` every 5 to 10 seconds while `queued` or `processing`; stop on `completed` or `failed`. Stop after 15 minutes and report its current state if still in progress. Use its JSON/SRT/VTT outputs only on completion; explain the returned error on failure.
 
 Use an existing transcript when available. Standalone transcription uses no processing credits, but file and daily limits apply. Do not submit a video for paid clipping when the user only wants a transcript or written draft.
 
@@ -17,7 +17,7 @@ Use an existing transcript when available. Standalone transcription uses no proc
 
 1. Call `list_videos` and pick the `id` whose title matches. Ask if several match.
 2. Call `list_clips` when the user refers to a clip ("the top clip", "the one about pricing"). Each clip has `start_time_ms` and `end_time_ms`.
-3. Call `get_transcript` with the `video` id. Pass a clip's `start_time_ms` and `end_time_ms` to read just that clip, or omit both for the whole video. Use `level: "word"` only when exact timing matters.
+3. Call `get_transcript` with the `video` id. To read just that clip, pass its `start_time_ms` as `start_ms` and its `end_time_ms` as `end_ms`. Omit both for the whole video. Use `level: "word"` only when exact timing matters.
 
 `transcript_ready: false` means the video is still processing. An empty `segments` list with `transcript_ready: true` means nothing was said in that window; widen it.
 
