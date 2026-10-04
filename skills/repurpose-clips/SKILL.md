@@ -19,7 +19,7 @@ Use an existing transcript when available. Standalone transcription uses no proc
 2. Call `list_clips` when the user refers to a clip ("the top clip", "the one about pricing"). Each clip has `start_time_ms` and `end_time_ms`.
 3. Call `get_transcript` with the `video` id. To read just that clip, pass its `start_time_ms` as `start_ms` and its `end_time_ms` as `end_ms`. Omit both for the whole video. Use `level: "word"` only when exact timing matters.
 
-`transcript_ready: false` means the video is still processing. An empty `segments` list with `transcript_ready: true` means nothing was said in that window; widen it.
+`transcript_ready: false` means no transcript is available at the requested level. Check `get_video_status` and explain its actual state. An empty `segments` list with `transcript_ready: true` means no transcript segments matched that window; widen it.
 
 To find where a topic comes up, read the full sentence-level transcript and report the matching timestamps as minutes and seconds, together with the nearest clip if one overlaps.
 
