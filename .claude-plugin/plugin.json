@@ -1,8 +1,8 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.2.2",
-  "description": "Find and preview clips from long videos, export chosen clips with captions, and reuse transcripts for posts. Caption short videos, edit media, and save brand settings.",
+  "version": "1.3.0",
+  "description": "Find and preview clips from long videos, export chosen clips with captions, and reuse transcripts for posts. Caption short videos, edit media, save brand settings, and search the GTA VI Library.",
   "author": {
     "name": "OpenClip",
     "email": "support@openclip.app",
