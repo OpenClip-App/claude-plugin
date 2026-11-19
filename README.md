@@ -1,6 +1,6 @@
 # OpenClip for Claude
 
-Find the moments worth sharing, then turn them into captioned clips. Use [OpenClip](https://openclip.app) in Claude to preview clips from podcasts, interviews, and webinars, choose your exports, and write posts from the original transcript.
+Find the moments worth sharing, then turn them into captioned clips. Use [OpenClip](https://openclip.app) in Claude to preview clips from podcasts, interviews, webinars, and game streams, choose your exports, and write posts from the original transcript. Search the GTA VI Library for gameplay moments and download them.
 
 ## Connect and make your first request
 
@@ -8,16 +8,16 @@ Find the moments worth sharing, then turn them into captioned clips. Use [OpenCl
 2. Connect OpenClip from the plugin's **Connectors** tab and sign in. In Claude Code, open `/mcp` to connect. OAuth handles sign-in; you don't need an API key.
 3. Choose one task below and provide a video link, an existing OpenClip video, or a file this session can upload.
 
-Clipping your own videos requires a trial or paid plan with credits. Creating an account alone does not grant processing credits. Captioning short videos and media utilities have separate allowances, described below.
+Clipping your own videos uses processing credits from a trial or paid plan. Captioning short videos, the GTA VI Library, and media utilities have separate allowances, described below.
 
 ## Choose the result you need
 
-- **Find clips to share.** "Find short clips from this video and show me the previews." Share a supported public video link. After reviewing the results, ask Claude to export your chosen clip with captions.
+- **Find clips to share.** "Find short clips from this video and show me the previews." Share a supported public video link, including a Twitch or Kick past broadcast. For gameplay, OpenClip picks reactions and action over cutscenes. After reviewing the results, ask Claude to export your chosen clip with captions.
 - **Caption a finished short video.** "Caption this video in the Chase style." Use a video up to 3 minutes long. Claude can list the available styles if you want to choose.
 - **Find a quote or draft a post.** "Find where my interview covers pricing and draft a LinkedIn post from that passage." Claude uses the processed video's transcript and timestamps. For transcription alone: "Transcribe this audio file and give me an SRT file."
 - **Prepare existing media.** "Resize this cover image to 1080 by 1080." You can also trim, crop, resize, or compress video, convert formats, extract audio, and save thumbnail frames.
 - **Reuse your brand settings.** "Use my saved brand settings to clip this video link." Claude can find saved processing agents, or save caption styles, composition settings, and a logo you ask it to reuse.
-- **Find GTA VI footage.** "Find a police chase in Vice City without a facecam and clip it." Claude searches OpenClip's GTA VI Library, an index of public GTA VI videos on YouTube, shows the matching moments with YouTube links, and clips the one you pick. The videos stay on YouTube.
+- **Find GTA VI footage.** "Find a police chase in Vice City without a facecam and download it." Claude searches OpenClip's GTA VI Library, an index of public GTA VI videos on YouTube, shows the matching moments with YouTube links, and downloads the one you pick as an MP4. The library stores where each moment is, not the footage.
 
 Claude checks processing progress, then returns previews or the finished file. Supported Claude apps show playable clip previews; Claude Code provides preview links. You choose what to export and where to share it.
 
@@ -25,14 +25,14 @@ Claude checks processing progress, then returns previews or the finished file. S
 
 - **Clipping:** one processing credit per minute of source video, with enough credits and an active trial or paid plan. Reading existing videos, clips, and transcripts uses no processing credits.
 - **Quick Captions:** no processing credits. Free accounts can export two captioned videos per month; once that allowance is used, further exports, including re-exports, wait until the next month. Paid plans are unlimited.
-- **GTA VI Library:** any account can search. Without a paid plan, a trial, or the $10/month library plan, a search shows its first 3 moments. Adding a video to the library needs one of those, and OpenClip reviews each added video before it is indexed. Clipping a moment uses processing credits like any clip; the library plan has no clipping minutes.
+- **GTA VI Library:** any account can search. Without a paid plan, a trial, or the $10/month library plan, a search shows its first 3 moments. Downloading moments and adding a video to the library need one of those. Downloads use no processing credits: moments of up to 60 seconds, kept for 24 hours. OpenClip reviews each added video before it is indexed. The library plan has no clipping minutes.
 - **Media utilities:** an account is enough. Transcription, media edits, conversion, and thumbnail extraction use no processing credits, but file and daily limits apply. On free accounts, edited or converted videos, edited images, and GIFs carry an OpenClip watermark; transcripts, extracted audio, and thumbnail frames do not.
 
-The current [published trial offer](https://openclip.app/docs/getting-started/credits-and-plans) is 3 days with 60 processing credits for eligible accounts. It requires a card and costs $0 today; a temporary card authorization may appear. The selected plan is charged when the trial ends unless canceled. Clips rendered during the trial include an OpenClip watermark. See the linked documentation for current terms.
+The current [published trial offer](https://openclip.app/docs/getting-started/credits-and-plans) is 2 days with 30 processing credits for eligible accounts. It requires a card and costs $0 today; a temporary card authorization may appear. The selected plan is charged when the trial ends unless canceled. On a trial, a video longer than the trial credits left starts the paid plan right away, so Claude offers a part that fits first. Clips rendered during the trial include an OpenClip watermark. See the linked documentation for current terms.
 
 ## Video links and file uploads
 
-For clipping, share a public YouTube, Vimeo, Google Drive, Dropbox, OneDrive, Rumble, or direct video link. For local video, audio, or images, the Claude session must be able to read your authorized file and upload its bytes. Otherwise, upload through the matching tool at openclip.app and ask Claude to use that file.
+For clipping, share a public YouTube, Twitch or Kick past broadcast, Vimeo, Google Drive, Dropbox, OneDrive, Rumble, or direct video link. For local video, audio, or images, the Claude session must be able to read your authorized file and upload its bytes. Otherwise, upload through the matching tool at openclip.app and ask Claude to use that file.
 
 For clients that transfer files, `create_upload` returns `uploaded: false`, a `video` id, and a presigned PUT URL. The id identifies any uploaded media, including an image. PUT the actual bytes before processing. Creating an upload alone starts no processing.
 
@@ -45,7 +45,7 @@ Use `list_agents` to find a saved agent and pass its id to `submit_video`. Befor
 
 ## What's included
 
-The plugin connects to `https://openclip.app/mcp/claude` with 29 tools and four workflow skills: [clip-video](skills/clip-video/SKILL.md), [caption-video](skills/caption-video/SKILL.md), [repurpose-clips](skills/repurpose-clips/SKILL.md), and [find-gta-vi-moments](skills/find-gta-vi-moments/SKILL.md). It works with your existing media. AI UGC generation and background removal are outside this connector.
+The plugin connects to `https://openclip.app/mcp/claude` with 31 tools and four workflow skills: [clip-video](skills/clip-video/SKILL.md), [caption-video](skills/caption-video/SKILL.md), [repurpose-clips](skills/repurpose-clips/SKILL.md), and [find-gta-vi-moments](skills/find-gta-vi-moments/SKILL.md). It works with your existing media. AI UGC generation and background removal are outside this connector.
 
 ## Data and privacy
 
@@ -55,7 +55,7 @@ The plugin itself stores nothing and runs no local code. It connects Claude to O
 - video, audio, and image files you explicitly upload to your OpenClip account for processing
 - agent settings and logo images you ask to save or replace
 - the ids of videos and clips you ask about, and your render choices, such as a caption style
-- your GTA VI Library searches, and the YouTube links you ask to add to the library
+- your GTA VI Library searches, the moments you ask to download, and the YouTube links you ask to add to the library
 
 OpenClip downloads and processes that media in your OpenClip account and returns clips, scores, and transcripts to Claude. Sign-in uses OAuth, so Claude never sees your OpenClip password. OpenClip doesn't read your Claude conversations. How OpenClip collects, uses, stores, and retains data is described in the [OpenClip privacy policy](https://openclip.app/privacy), and use of the service is covered by the [terms of service](https://openclip.app/terms).
 

@@ -1,6 +1,6 @@
 ---
 name: clip-video
-description: Find short clips in a long video, preview the results, and render selected clips with captions. Use for public video links or authorized local videos when the user asks for podcast highlights, interview clips, shorts, TikToks, Reels, or YouTube Shorts. Also use to check an OpenClip video's progress or render an existing clip.
+description: Find short clips in a long video, preview the results, and render selected clips with captions. Use for public video links or authorized local videos when the user asks for podcast highlights, interview clips, gameplay and stream highlights (Twitch, Kick, YouTube, GTA VI), shorts, TikToks, Reels, or YouTube Shorts. Also use to check an OpenClip video's progress or render an existing clip.
 ---
 
 # Clip a video with OpenClip
@@ -13,7 +13,11 @@ Start with the user's task. For an existing clip or transcript, use the saved vi
 
 ## 1. Submit the source
 
-Call `submit_video` with the link as `url`. Pass `title` only if the user gave one. If the user requests a saved brand/processing agent, call `list_agents` and pass its id as `agent`; otherwise team defaults apply. Deduplication is by URL plus agent, so changing agents starts a new run and can use credits.
+Call `submit_video` with the link as `url`. Pass `title` only if the user gave one. If the user requests a saved brand/processing agent, call `list_agents` and pass its id as `agent`; otherwise team defaults apply. Deduplication is by URL plus agent, clip preferences, and range, so changing any of them starts a new run and can use credits.
+
+- For gameplay or a stream VOD, such as a GTA VI session, pass `content_genre: "gaming"` so clip picking favors reactions and action over cutscenes. A Twitch or Kick past broadcast in a game category, or a YouTube Gaming video, runs as gaming without it.
+- To clip one part of a long video or stream, pass `start_seconds` and `end_seconds`. Only that part is processed and billed.
+- `max_clip_seconds` (15 to 90) caps clip length, and `clip_guidance` (up to 300 characters) says which moments to prefer. Pass them only when the user asks.
 
 For a local video, first check that this session can read the user-authorized file and upload its bytes. If it can, call `create_upload`, PUT the actual bytes, then call `complete_upload` to start the clipping pipeline, which requires a trial or paid plan with credits. Only this clipping workflow uses `complete_upload`; skip it for captions, transcription, and media utilities. Otherwise, use an existing OpenClip video or ask the user to upload through OpenClip.
 
@@ -21,7 +25,9 @@ For a local video, first check that this session can read the user-authorized fi
 - `deduped: true` means OpenClip reused a run of the same link from the last 24 hours. Say so, and continue with the returned `video` id instead of submitting again.
 - For an existing video ("how is my podcast clip doing?"), call `list_videos` and use the matching `id`. If several titles match, ask which one.
 
-New clipping needs a trial or paid plan with credits, at one credit per source minute. Before the first submission, call `get_account` if the plan and balance have not already been checked. Explain any account restriction plainly. When asked about cost, state the rate and available balance; do not invent the source's duration.
+New clipping uses processing credits, one per source minute. Before the first submission, call `get_account` if the plan and balance have not already been checked. Explain any account restriction plainly. When asked about cost, state the rate and available balance; do not invent the source's duration.
+
+On a trial, a video longer than the trial credits left starts the paid plan right away, as the trial checkout states, and is then processed in full. Before you submit such a video, tell the user and offer a part that fits with `start_seconds` and `end_seconds`, which keeps them on the trial.
 
 ## 2. Poll until it's done
 
