@@ -7,7 +7,7 @@ description: Find short clips in a long video, preview the results, and render s
 
 Help the user choose a moment to share and get a captioned video file. OpenClip detects candidate clips and scores each one from 0 to 10 for comparison. Submit the requested source, check progress, show previews, and render the clips the user chooses. Do not promise audience performance.
 
-All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab (or `/mcp` in Claude Code) and sign in. If they need an account, they can [create one](https://openclip.app/register). After connecting, call `get_account` to confirm the team, plan, and remaining credits.
+All tools come from the OpenClip connector. If the tools are missing, ask the user to connect OpenClip from this plugin's Connectors tab (or `/mcp` in Claude Code) and sign in. If they need an account, they can [create one](https://openclip.app/register). After connecting, call `get_account` to confirm the team, plan, remaining credits, and free minutes.
 
 Start with the user's task. For an existing clip or transcript, use the saved video rather than submitting it again. For captions on a finished short video, use the caption-video skill. For a quote, summary, or standalone transcript, use repurpose-clips. Do not start clipping to demonstrate a feature the user did not request.
 
@@ -19,13 +19,13 @@ Call `submit_video` with the link as `url`. Pass `title` only if the user gave o
 - To clip one part of a long video or stream, pass `start_seconds` and `end_seconds`. Only that part is processed and billed.
 - `max_clip_seconds` (15 to 90) caps clip length, and `clip_guidance` (up to 300 characters) says which moments to prefer. Pass them only when the user asks.
 
-For a local video, first check that this session can read the user-authorized file and upload its bytes. If it can, call `create_upload`, PUT the actual bytes, then call `complete_upload` to start the clipping pipeline, which requires a trial or paid plan with credits. Only this clipping workflow uses `complete_upload`; skip it for captions, transcription, and media utilities. Otherwise, use an existing OpenClip video or ask the user to upload through OpenClip.
+For a local video, first check that this session can read the user-authorized file and upload its bytes. If it can, call `create_upload`, PUT the actual bytes, then call `complete_upload` to start the clipping pipeline, which uses the free minutes `get_account` reports or credits from a trial or paid plan. Only this clipping workflow uses `complete_upload`; skip it for captions, transcription, and media utilities. Otherwise, use an existing OpenClip video or ask the user to upload through OpenClip.
 
 - If you're unsure the link is supported, call `list_supported_providers` first. Unsupported, non-HTTPS, and private links are rejected with a clear error; relay it and ask for another link. A link that is accepted but can't be fetched ends as `download_failed` in step 2.
 - `deduped: true` means OpenClip reused a run of the same link from the last 24 hours. Say so, and continue with the returned `video` id instead of submitting again.
 - For an existing video ("how is my podcast clip doing?"), call `list_videos` and use the matching `id`. If several titles match, ask which one.
 
-New clipping uses processing credits, one per source minute. Before the first submission, call `get_account` if the plan and balance have not already been checked. Explain any account restriction plainly. When asked about cost, state the rate and available balance; do not invent the source's duration.
+New clipping uses processing credits, one per source minute. Before the first submission, call `get_account` if the plan and balance have not already been checked. When it shows `free_minutes`, the team's next video (a link or an upload) processes its first `free_minutes` free, with a watermark and no card, even with 0 credits: submit it. Do not pass `start_seconds` or `end_seconds` for it unless the user names a part; OpenClip picks the free part. `submit_video` and `get_video_status` then return `free_taste: true`; tell the user the clips come from those free minutes. Explain any other account restriction plainly. When asked about cost, state the rate and available balance; do not invent the source's duration.
 
 On a trial, a video longer than the trial credits left starts the paid plan right away, as the trial checkout states, and is then processed in full. Before you submit such a video, tell the user and offer a part that fits with `start_seconds` and `end_seconds`, which keeps them on the trial.
 
