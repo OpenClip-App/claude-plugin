@@ -1,8 +1,8 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.4.1",
-  "description": "Find and preview clips from long videos and game streams, export chosen clips with captions, and reuse transcripts for posts. Search the GTA VI Library for gameplay moments and download them. Caption short videos and edit media.",
+  "version": "1.4.2",
+  "description": "Find and preview clips from long videos and game streams, export chosen clips with captions, and reuse transcripts for posts. Search the GTA VI footage library for gameplay moments by character, place or vehicle. Caption short videos and edit media.",
   "author": {
     "name": "OpenClip",
     "email": "support@openclip.app",
@@ -23,7 +23,8 @@
     "gameplay",
     "twitch",
     "gta-vi",
-    "gta-6"
+    "gta-6",
+    "gta-vi-footage"
   ],
   "icon": "./assets/icon-512.png",
   "privacyPolicyUrl": "https://openclip.app/privacy"

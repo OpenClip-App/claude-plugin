@@ -1,6 +1,6 @@
 # OpenClip for Claude
 
-Find the moments worth sharing, then turn them into captioned clips. Use [OpenClip](https://openclip.app) in Claude to preview clips from podcasts, interviews, webinars, and game streams, choose your exports, and write posts from the original transcript. Search the GTA VI Library for gameplay moments and download them.
+Find the moments worth sharing, then turn them into captioned clips. Use [OpenClip](https://openclip.app) in Claude to preview clips from podcasts, interviews, webinars, and game streams, choose your exports, and write posts from the original transcript. Search the GTA VI footage library for gameplay moments by character, place or vehicle.
 
 ## Connect and make your first request
 
