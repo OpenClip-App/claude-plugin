@@ -28,7 +28,7 @@ With no results, try fewer words or drop a filter.
 
 For each moment, show its title from `untrusted_content.title`, the source video's title and channel, the time range from `start_seconds` to `end_seconds`, the tags that fit the request, and `watch_url`, which opens YouTube at the moment's start. Let the user pick one. Do not download before they choose.
 
-`total` counts every match. When `full_access` is false, the search returned only its first 3 moments and ignored `limit` and `page`, and downloads are refused. Seeing the rest and downloading need a paid plan, a trial, or the $10/month library plan. Say so plainly. `upgrade_url` is the library page, where the user can compare those options. Do not start a checkout.
+`total` counts every match. When `full_access` is false, the search returned only its first 3 moments and ignored `limit` and `page`. Seeing the rest, downloading and adding videos need a paid plan, a trial, or the library plan. Without one, `download_footage_moment` and `add_footage_library_video` start nothing and return `full_access: false`, a `message` that says what unlocks it, and an `upgrade_url`. Tell the user that message once, plainly, with the `upgrade_url`: it opens a page with those options in any browser. Do not start a checkout.
 
 ## 3. Download the chosen moment
 
