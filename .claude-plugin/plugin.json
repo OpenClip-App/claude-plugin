@@ -1,7 +1,7 @@
 {
   "name": "openclip",
   "displayName": "OpenClip",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Find and preview clips from long videos and game streams, export chosen clips with captions, and reuse transcripts for posts. Search the GTA VI footage library for gameplay moments by character, place or vehicle. Caption short videos and edit media.",
   "author": {
     "name": "OpenClip",
